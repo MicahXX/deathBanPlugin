@@ -1,0 +1,10 @@
+name: deathBanPlugin
+description: $description
+version: '${version}'
+
+main: me.dev.micahcode.DeathBanPlugin
+api-version: '26.2'
+load: POSTWORLD
+
+authors: [ MicahCode ]
+website: https://micahcode.com/
