@@ -6,5 +6,16 @@ main: me.dev.micahcode.DeathBanPlugin
 api-version: '26.2'
 load: POSTWORLD
 
+commands:
+  autoban:
+    description: Ban players when they die (need OP for this or deathBanPlugin.admin)
+    usage: /autoban (on|off)
+    permission: deathBanPlugin.admin
+
+permissions:
+  deathBanPlugin.admin:
+    description: Allows the user to run commands for the deathBanPlugin
+    default: op
+
 authors: [ MicahCode ]
 website: https://micahcode.com/

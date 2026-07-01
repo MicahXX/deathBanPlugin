@@ -1,4 +1,4 @@
 package me.dev.micahcode.commands;
 
-public class Onlyban {
+public class ExcludeFromBan {
 }

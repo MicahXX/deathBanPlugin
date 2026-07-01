@@ -2,23 +2,26 @@ package me.dev.micahcode.commands;
 
 import io.papermc.paper.command.brigadier.BasicCommand;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
+import me.dev.micahcode.DeathBanPlugin;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
-import org.bukkit.event.entity.PlayerDeathEvent;
 import org.jspecify.annotations.NullMarked;
 
-import java.time.Duration;
 
 
 @NullMarked
 public class Autoban implements BasicCommand {
 
-    boolean autoBan = false;
+    private final DeathBanPlugin plugin;
+
+    public Autoban(DeathBanPlugin plugin) {
+        this.plugin = plugin;
+    }
 
     @Override
     public void execute(CommandSourceStack source, String[] args) {
-        if (!source.getExecutor().hasPermission("admin")) {
+        // todo: make it possible to see suggestion for on/off for user
+
+        if (!source.getExecutor().hasPermission("deathBanPlugin.admin")) {
             source.getSender().sendRichMessage("<red>You dont have the permissions to do this.");
             return;
         }
@@ -28,14 +31,15 @@ public class Autoban implements BasicCommand {
             return;
         }
 
-        
-    }
-
-    @EventHandler
-    public void onPlayerDeath(PlayerDeathEvent playerDeathEvent) {
-        Player player = playerDeathEvent.getPlayer();
-
-        // should be if statement for if exclude or only is on
-        player.ban("gg", Duration.ofDays(2), "Console", true);
+        if (args[0].equalsIgnoreCase("on")) {
+            plugin.setAutoBanEnabled(true);
+            source.getSender().sendRichMessage("Auto ban is now enabled!");
+        }
+        else if (args[0].equalsIgnoreCase("off")) {
+            plugin.setAutoBanEnabled(false);
+            source.getSender().sendRichMessage("Auto ban is now disabled!");
+        } else {
+            source.getSender().sendRichMessage("Usage: /autoban (on/off)");
+        }
     }
 }

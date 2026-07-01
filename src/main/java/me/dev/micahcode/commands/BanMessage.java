@@ -7,7 +7,7 @@ import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
 import org.bukkit.Bukkit;
 
-public class Banmessage implements BasicCommand {
+public class BanMessage implements BasicCommand {
     // for testing
     @Override
     public void execute(CommandSourceStack source, String[] args) {
