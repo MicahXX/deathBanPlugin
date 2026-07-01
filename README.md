@@ -1,1 +1,1 @@
-This is a plugin im making to learn the fundamentals of making commands etc, without AI
+simple plugin for auto banning with mith multiple extra features (work in progress, also the code was written by me alone without generating code and at most asking for reference (:)
