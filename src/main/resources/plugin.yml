@@ -11,6 +11,10 @@ commands:
     description: Ban players when they die (need OP for this or deathBanPlugin.admin)
     usage: /autoban (on|off)
     permission: deathBanPlugin.admin
+  reload:
+    description: Reload config.yml
+    usage: /reload
+    permission: deathBanPlugin.admin
 
 permissions:
   deathBanPlugin.admin:

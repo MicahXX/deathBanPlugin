@@ -3,6 +3,7 @@ package me.dev.micahcode;
 import io.papermc.paper.command.brigadier.Commands;
 import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
 import me.dev.micahcode.commands.Autoban;
+import me.dev.micahcode.commands.Reload;
 import me.dev.micahcode.listeners.DeathListener;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -17,7 +18,7 @@ public final class DeathBanPlugin extends JavaPlugin {
     // not in .yml
     // /unban <player/all>
 
-    private boolean autoBanEnabled = true; // default: on
+    private boolean autoBanEnabled; // default: on
 
     // not needed for now
     // private final Set<String> onlyBanPlayers = new HashSet<>();
@@ -26,9 +27,13 @@ public final class DeathBanPlugin extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        saveDefaultConfig();
+        this.autoBanEnabled = getConfig().getBoolean("autoban", true);
+
         this.getLifecycleManager().registerEventHandler(LifecycleEvents.COMMANDS, event -> {
             final Commands commands = event.registrar();
             commands.register("autoban", "Toggle autoban on/off", new Autoban(this));
+            commands.register("reload", "Reload the config file", new Reload(this));
             // todo: the other commands (same format)
         });
 
@@ -42,5 +47,7 @@ public final class DeathBanPlugin extends JavaPlugin {
 
     public void setAutoBanEnabled(boolean autoBanEnabled) {
         this.autoBanEnabled = autoBanEnabled;
+        getConfig().set("autoban", autoBanEnabled);
+        saveConfig();
     }
 }

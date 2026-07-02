@@ -21,13 +21,13 @@ public class Autoban implements BasicCommand {
     public void execute(CommandSourceStack source, String[] args) {
         // todo: make it possible to see suggestion for on/off for user
 
-        if (!source.getExecutor().hasPermission("deathBanPlugin.admin")) {
+        if (!source.getSender().hasPermission("deathBanPlugin.admin")) {
             source.getSender().sendRichMessage("<red>You dont have the permissions to do this.");
             return;
         }
 
         if (args.length == 0) {
-            source.getSender().sendRichMessage("<red>You cannot send an empty broadcast!");
+            source.getSender().sendRichMessage("<red>Usage: /autoban (on/off)");
             return;
         }
 

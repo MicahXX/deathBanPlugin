@@ -1,0 +1,7 @@
+# deatBanPlugin made by micahcode
+autoban: true # true = ban players on death, false = don't ban players on death
+
+# todo: the other settings
+# banmessage: ""
+# excludefromban: []
+# onlyban: []
