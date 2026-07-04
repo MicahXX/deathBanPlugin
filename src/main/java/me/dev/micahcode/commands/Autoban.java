@@ -3,10 +3,7 @@ package me.dev.micahcode.commands;
 import io.papermc.paper.command.brigadier.BasicCommand;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
 import me.dev.micahcode.DeathBanPlugin;
-import org.bukkit.entity.Player;
 import org.jspecify.annotations.NullMarked;
-
-
 
 @NullMarked
 public class Autoban implements BasicCommand {
