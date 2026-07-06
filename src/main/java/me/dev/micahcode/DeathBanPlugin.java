@@ -11,25 +11,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 public final class DeathBanPlugin extends JavaPlugin {
-
-    // also in .yml
-    // /autoban off/on (on is default) --> all players (can also be set in config)
-    // /onlyban <playername> --> only his player (if autoban off make it on)
-    // /excludefromban <playername> --> dont ban this player
-    // /banmessage <message> OR in config
-
-    // not in .yml
-    // /unban <player/all>
-
     private boolean autoBanEnabled; // default: on
     private String banmessage;
     private int bantime;
     private Set<String> excludedPlayers;
-
-    // not needed for now
-    // private final Set<String> onlyBanPlayers = new HashSet<>();
-    // private final Set<String> excludedPlayers = new HashSet<>();
-    // private String banMessage = "Test";
 
     @Override
     public void onEnable() {
