@@ -21,15 +21,20 @@ public class DeathListener implements Listener {
     @EventHandler
     public void onPlayerDeath(PlayerDeathEvent event) {
         Player player = event.getPlayer();
+        String name = player.getName();
 
-        // todo: there will be some checks like if there are excluded etc
+        boolean ban;
 
-        if (plugin.isAutoBanEnabled() && !plugin.getExcludedPlayers().contains(player.getName())) {
+        if (!plugin.getOnlyBanPlayers().isEmpty()) {
+            ban = plugin.getOnlyBanPlayers().contains(name); // has only ban entries
+        } else {
+            ban = plugin.isAutoBanEnabled() && !plugin.getExcludedPlayers().contains(name);
+        }
+
+        if (ban) {
             int minutes = plugin.getBantime();
-            Duration duration = minutes > 0 ? Duration.ofMinutes(minutes) : null; // null is perma
-
+            Duration duration = minutes > 0 ? Duration.ofMinutes(minutes) : null;
             player.ban(plugin.getBanmessage(), duration, "console");
-            Bukkit.broadcast(Component.text(player.getName() + " was banned."));
         }
     }
 }

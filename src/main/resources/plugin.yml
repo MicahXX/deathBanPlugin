@@ -27,6 +27,14 @@ commands:
     description: Remove a player from the excluded list
     usage: /removefromexcluded <ign>
     permission: deathBanPlugin.admin
+  onlyban:
+    description: Only ban named players
+    usage: /onlyban <ign>
+    permission: deathBanPlugin.admin
+  removefromonlyban:
+    description: Remove a player from the only ban list
+    usage: /removefromonlyban <ign>
+    permission: deathBanPlugin.admin
   reload:
     description: Reload config.yml
     usage: /reload

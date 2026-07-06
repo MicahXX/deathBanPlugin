@@ -19,7 +19,7 @@ public class ExcludeFromBan implements BasicCommand {
         }
 
         if (args.length == 0) {
-            source.getSender().sendRichMessage("<red>Usage: /excludefromban <player>");
+            source.getSender().sendRichMessage("<red>Usage: /excludefromban <ign>");
             return;
         }
 

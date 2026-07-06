@@ -15,14 +15,12 @@ public final class DeathBanPlugin extends JavaPlugin {
     private String banmessage;
     private int bantime;
     private Set<String> excludedPlayers;
+    private Set<String> onlyBanPlayers;
 
     @Override
     public void onEnable() {
         saveDefaultConfig();
-        this.autoBanEnabled = getConfig().getBoolean("autoban", true);
-        this.banmessage = getConfig().getString("banmessage");
-        this.bantime = getConfig().getInt("bantime");
-        this.excludedPlayers = new HashSet<>(getConfig().getStringList("excludefromban"));
+        reloadAllFromConfig();
 
         this.getLifecycleManager().registerEventHandler(LifecycleEvents.COMMANDS, event -> {
             final Commands commands = event.registrar();
@@ -31,6 +29,8 @@ public final class DeathBanPlugin extends JavaPlugin {
             commands.register("bantime", "Set the time of the ban", new BanTime(this));
             commands.register("excludefromban", "Exclude a player from being banned", new ExcludeFromBan(this));
             commands.register("removefromexclude", "Remove the player from the excluded list", new RemoveFromExclude(this));
+            commands.register("onlyban", "Only ban named players", new OnlyBan(this));
+            commands.register("removefromonlyban", "Remove the player from the only ban list", new RemoveFromOnlyBan(this));
             commands.register("reload", "Reload the config file", new Reload(this));
             // todo: the other commands (same format)
         });
@@ -78,8 +78,26 @@ public final class DeathBanPlugin extends JavaPlugin {
         saveConfig();
     }
 
-    public void reloadExcludedPlayers() {
-        this.excludedPlayers = new HashSet<>(getConfig().getStringList("excludefromban"));
+    public Set<String> getOnlyBanPlayers() {
+        return onlyBanPlayers;
+    }
+
+    public void setOnlyBanPlayers(String playerName) {
+        onlyBanPlayers.add(playerName);
+        getConfig().set("onlyban", new ArrayList<>(onlyBanPlayers));
+        saveConfig();
+    }
+
+    public void removeExcludedPlayer(String playerName) {
+        excludedPlayers.remove(playerName);
+        getConfig().set("excludefromban", new ArrayList<>(excludedPlayers));
+        saveConfig();
+    }
+
+    public void removeOnlyBanPlayer(String playerName) {
+        onlyBanPlayers.remove(playerName);
+        getConfig().set("onlyban", new ArrayList<>(onlyBanPlayers));
+        saveConfig();
     }
 
     public void reloadAllFromConfig() {
@@ -87,6 +105,6 @@ public final class DeathBanPlugin extends JavaPlugin {
         this.banmessage = getConfig().getString("banmessage");
         this.bantime = getConfig().getInt("bantime");
         this.excludedPlayers = new HashSet<>(getConfig().getStringList("excludefromban"));
-        // todo: add onlyBan later
+        this.onlyBanPlayers = new HashSet<>(getConfig().getStringList("onlyban"));
     }
 }
