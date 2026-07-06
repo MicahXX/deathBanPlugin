@@ -19,6 +19,14 @@ commands:
     description: The ban time of the ban
     usage: /banmessage <time>
     permission: deathBanPlugin.admin
+  excludefromban:
+    description: Exclude a player from being banned
+    usage: /excludefromban <ign>
+    permission: deathBanPlugin.admin
+  removefromexclude:
+    description: Remove a player from the excluded list
+    usage: /removefromexcluded <ign>
+    permission: deathBanPlugin.admin
   reload:
     description: Reload config.yml
     usage: /reload

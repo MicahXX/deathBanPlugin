@@ -24,8 +24,7 @@ public class Reload implements BasicCommand {
         }
 
         plugin.reloadConfig();
-        plugin.setAutoBanEnabled(plugin.getConfig().getBoolean("autoban", true));
-        // add the other things to reload after, like ban message etc
+        plugin.reloadAllFromConfig();
         source.getSender().sendRichMessage("DeathBan configuration reloaded.");
     }
 }

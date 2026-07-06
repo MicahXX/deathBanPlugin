@@ -4,10 +4,10 @@ import io.papermc.paper.command.brigadier.BasicCommand;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
 import me.dev.micahcode.DeathBanPlugin;
 
-public class ExcludeFromBan implements BasicCommand {
+public class RemoveFromExclude implements BasicCommand {
     private final DeathBanPlugin plugin;
 
-    public ExcludeFromBan(DeathBanPlugin plugin) {
+    public RemoveFromExclude(DeathBanPlugin plugin) {
         this.plugin = plugin;
     }
 
@@ -19,12 +19,16 @@ public class ExcludeFromBan implements BasicCommand {
         }
 
         if (args.length == 0) {
-            source.getSender().sendRichMessage("<red>Usage: /excludefromban <player>");
+            source.getSender().sendRichMessage("<red>Usage: /removefromexclude <player>");
             return;
         }
 
         String playerName = args[0];
-        plugin.setExcludedPlayer(playerName);
-        source.getSender().sendRichMessage("<green>" + playerName + " will no longer be autobanned on death.");
+        if (plugin.getExcludedPlayers().contains(playerName)) {
+            plugin.getExcludedPlayers().remove(playerName);
+            source.getSender().sendRichMessage("<red>" + playerName + " will now be autobanned on death.");
+        } else {
+            source.getSender().sendRichMessage("Player is not in the excluded players");
+        }
     }
 }

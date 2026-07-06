@@ -24,7 +24,7 @@ public class DeathListener implements Listener {
 
         // todo: there will be some checks like if there are excluded etc
 
-        if (plugin.isAutoBanEnabled()) {
+        if (plugin.isAutoBanEnabled() && !plugin.getExcludedPlayers().contains(player.getName())) {
             int minutes = plugin.getBantime();
             Duration duration = minutes > 0 ? Duration.ofMinutes(minutes) : null; // null is perma
 

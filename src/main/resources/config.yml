@@ -2,7 +2,9 @@
 autoban: true # true = ban players on death, false = don't ban players on death
 banmessage: "You were eliminated. Thank you for playing"
 bantime: 0 # 0 = perma ban, anything else is ban in minutes
+excludefromban: # to add more excluded players just add them below same format
+  - micahcode
+  - abc
 
 # todo: the other settings
-excludefromban: []
 onlyban: []
