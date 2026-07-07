@@ -23,7 +23,7 @@ public class RemoveFromOnlyBan implements BasicCommand {
             return;
         }
 
-        String playerName = args[0];
+        String playerName = args[0].toLowerCase();
         if (plugin.getOnlyBanPlayers().contains(playerName)) {
             plugin.removeOnlyBanPlayer(playerName);
             source.getSender().sendRichMessage("<green>" + playerName + " is not the only one getting banned anymore.");

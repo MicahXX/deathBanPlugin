@@ -17,3 +17,6 @@ excludefromban: # to add more excluded players just add them below same format
 onlyban: # this ignores autoban and excludefromban completely
   - micahcode
   - abc
+
+# the /unban command only unbans players that are banned by the plugin
+bannedplayers: [] # dont edit this

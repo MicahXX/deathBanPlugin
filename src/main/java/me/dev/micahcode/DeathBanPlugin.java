@@ -6,9 +6,7 @@ import me.dev.micahcode.commands.*;
 import me.dev.micahcode.listeners.DeathListener;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public final class DeathBanPlugin extends JavaPlugin {
     private boolean autoBanEnabled; // default: on
@@ -16,6 +14,7 @@ public final class DeathBanPlugin extends JavaPlugin {
     private int bantime;
     private Set<String> excludedPlayers;
     private Set<String> onlyBanPlayers;
+    private Set<UUID> bannedPlayers;
 
     @Override
     public void onEnable() {
@@ -32,7 +31,7 @@ public final class DeathBanPlugin extends JavaPlugin {
             commands.register("onlyban", "Only ban named players", new OnlyBan(this));
             commands.register("removefromonlyban", "Remove the player from the only ban list", new RemoveFromOnlyBan(this));
             commands.register("reload", "Reload the config file", new Reload(this));
-            // todo: the other commands (same format)
+            commands.register("unban", "Unban all or a specific player", new Unban(this));
         });
 
         getServer().getPluginManager().registerEvents(new DeathListener(this), this);
@@ -73,7 +72,7 @@ public final class DeathBanPlugin extends JavaPlugin {
     }
 
     public void setExcludedPlayer(String playerName) {
-        excludedPlayers.add(playerName);
+        excludedPlayers.add(playerName.toLowerCase());
         getConfig().set("excludefromban", new ArrayList<>(excludedPlayers));
         saveConfig();
     }
@@ -83,20 +82,45 @@ public final class DeathBanPlugin extends JavaPlugin {
     }
 
     public void setOnlyBanPlayers(String playerName) {
-        onlyBanPlayers.add(playerName);
+        onlyBanPlayers.add(playerName.toLowerCase());
         getConfig().set("onlyban", new ArrayList<>(onlyBanPlayers));
         saveConfig();
     }
 
     public void removeExcludedPlayer(String playerName) {
-        excludedPlayers.remove(playerName);
+        excludedPlayers.remove(playerName.toLowerCase());
         getConfig().set("excludefromban", new ArrayList<>(excludedPlayers));
         saveConfig();
     }
 
     public void removeOnlyBanPlayer(String playerName) {
-        onlyBanPlayers.remove(playerName);
+        onlyBanPlayers.remove(playerName.toLowerCase());
         getConfig().set("onlyban", new ArrayList<>(onlyBanPlayers));
+        saveConfig();
+    }
+
+    public Set<UUID> getBannedPlayers() {
+        return bannedPlayers;
+    }
+
+    public void addBannedPlayer(UUID uuid) {
+        bannedPlayers.add(uuid);
+        saveBannedPlayers();
+    }
+
+    public void removeBannedPlayer(UUID uuid) {
+        bannedPlayers.remove(uuid);
+        saveBannedPlayers();
+    }
+
+    public void clearBannedPlayers() {
+        bannedPlayers.clear();
+        saveBannedPlayers();
+    }
+
+    private void saveBannedPlayers() {
+        List<String> asStrings = bannedPlayers.stream().map(UUID::toString).toList();
+        getConfig().set("bannedplayers", asStrings);
         saveConfig();
     }
 
@@ -104,7 +128,21 @@ public final class DeathBanPlugin extends JavaPlugin {
         this.autoBanEnabled = getConfig().getBoolean("autoban", true);
         this.banmessage = getConfig().getString("banmessage");
         this.bantime = getConfig().getInt("bantime");
-        this.excludedPlayers = new HashSet<>(getConfig().getStringList("excludefromban"));
-        this.onlyBanPlayers = new HashSet<>(getConfig().getStringList("onlyban"));
+        this.excludedPlayers = new HashSet<>();
+        for (String s : getConfig().getStringList("excludefromban")) {
+            this.excludedPlayers.add(s.toLowerCase());
+        }
+        this.onlyBanPlayers = new HashSet<>();
+        for (String s : getConfig().getStringList("onlyban")) {
+            this.onlyBanPlayers.add(s.toLowerCase());
+        }
+        this.bannedPlayers = new HashSet<>();
+        for (String s : getConfig().getStringList("bannedplayers")) {
+            try {
+                this.bannedPlayers.add(UUID.fromString(s));
+            } catch (IllegalArgumentException ignored) {
+                // to not crash
+            }
+        }
     }
 }

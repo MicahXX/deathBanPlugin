@@ -4,6 +4,8 @@ import io.papermc.paper.command.brigadier.BasicCommand;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
 import me.dev.micahcode.DeathBanPlugin;
 
+import java.util.Locale;
+
 public class RemoveFromExclude implements BasicCommand {
     private final DeathBanPlugin plugin;
 
@@ -23,7 +25,7 @@ public class RemoveFromExclude implements BasicCommand {
             return;
         }
 
-        String playerName = args[0];
+        String playerName = args[0].toLowerCase();
         if (plugin.getExcludedPlayers().contains(playerName)) {
             plugin.removeExcludedPlayer(playerName);
             source.getSender().sendRichMessage("<green>" + playerName + " will now be autobanned on death.");

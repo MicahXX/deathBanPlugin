@@ -21,7 +21,7 @@ public class DeathListener implements Listener {
     @EventHandler
     public void onPlayerDeath(PlayerDeathEvent event) {
         Player player = event.getPlayer();
-        String name = player.getName();
+        String name = player.getName().toLowerCase();
 
         boolean ban;
 
@@ -35,6 +35,7 @@ public class DeathListener implements Listener {
             int minutes = plugin.getBantime();
             Duration duration = minutes > 0 ? Duration.ofMinutes(minutes) : null;
             player.ban(plugin.getBanmessage(), duration, "console");
+            plugin.addBannedPlayer(player.getUniqueId()); // add to banned list
         }
     }
 }
