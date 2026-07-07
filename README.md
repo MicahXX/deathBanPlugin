@@ -21,3 +21,9 @@ A Paper plugin that automatically bans players when they die, with configurable 
 | `/⁠unban` | Unban a specific player or all banned players (leave it blank to unban all) | `/⁠unban <ign>` | `deathBanPlugin.admin` |
 
 All settings (autoban toggle, ban message, ban time, exclude list, only-ban list) are fully configurable in `config.yml` and can be reloaded with `/⁠reload`.
+
+## License
+This project is licensed under the [MIT License](LICENSE).
+
+## Author
+Made by [micahcode](https://micahcode.com)
