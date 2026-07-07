@@ -2,11 +2,14 @@ package me.dev.micahcode.listeners;
 
 import me.dev.micahcode.DeathBanPlugin;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.minimessage.MiniMessage;
+import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.player.PlayerKickEvent;
 
 import java.time.Duration;
 
@@ -34,8 +37,15 @@ public class DeathListener implements Listener {
         if (ban) {
             int minutes = plugin.getBantime();
             Duration duration = minutes > 0 ? Duration.ofMinutes(minutes) : null;
-            player.ban(plugin.getBanmessage(), duration, "console");
-            plugin.addBannedPlayer(player.getUniqueId()); // add to banned list
+
+            Component styledReason = MiniMessage.miniMessage().deserialize(plugin.getBanmessage());
+            String plainReason = PlainTextComponentSerializer.plainText().serialize(styledReason);
+
+            player.ban(plainReason, duration, "console", false);
+
+            player.kick(styledReason, PlayerKickEvent.Cause.BANNED);
+
+            plugin.addBannedPlayer(player.getUniqueId());
         }
     }
 }
