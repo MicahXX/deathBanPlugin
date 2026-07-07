@@ -21,3 +21,5 @@ A Paper plugin that automatically bans players when they die, with configurable 
 | `/removefromonlyban` | Remove a player from the only-ban list | `/removefromonlyban <ign>` | `deathBanPlugin.admin` |
 | `/reload` | Reload the config file | `/reload` | `deathBanPlugin.admin` |
 | `/unban` | Unban a specific player or all banned players (leave it blank to unban all) | `/unban <ign>` | `deathBanPlugin.admin` |
+
+All settings (autoban toggle, ban message, ban time, exclude list, only-ban list) are fully configurable in `config.yml` and can be with `/reload`.
