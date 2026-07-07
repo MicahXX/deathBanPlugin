@@ -3,17 +3,19 @@ A Paper plugin that automatically bans players when they die, with configurable 
 
 ## Compatibility
 
+This project is split into separate builds targeting different Minecraft/Java versions, all sharing the same source code:
+
 | Module   | Minecraft Version | Server Software | Java | Status |
 |----------|--------------------|------------------|------|--------|
 | `legacy` | 1.21.x             | Paper            | 21   | Works  |
-| `modern` | 26.x                | Paper            | 25   | Works  |
-
-Download the jar matching your server's Minecraft version: `deathBanPlugin-1.21.x.jar` for 1.21.x, `deathBanPlugin-26.x.jar` for 26.x.
+| `26_1`   | 26.1.x             | Paper            | 25   | Works  |
+| `modern` | 26.2+              | Paper            | 25   | Works  |
 
 ## Building
 
 ```bash
 ./gradlew :legacy:build   # outputs build/libs/deathBanPlugin-1.21.x.jar
+./gradlew :26_1:build     # outputs build/libs/deathBanPlugin-26.1.jar
 ./gradlew :modern:build   # outputs build/libs/deathBanPlugin-26.x.jar
 ```
 
