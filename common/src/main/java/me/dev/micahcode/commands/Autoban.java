@@ -3,9 +3,8 @@ package me.dev.micahcode.commands;
 import io.papermc.paper.command.brigadier.BasicCommand;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
 import me.dev.micahcode.DeathBanPlugin;
-import org.jspecify.annotations.NullMarked;
 
-@NullMarked
+
 public class Autoban implements BasicCommand {
 
     private final DeathBanPlugin plugin;

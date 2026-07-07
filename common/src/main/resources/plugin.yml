@@ -3,7 +3,7 @@ description: $description
 version: '${version}'
 
 main: me.dev.micahcode.DeathBanPlugin
-api-version: '26.2'
+api-version: '${apiVersion}'
 load: POSTWORLD
 
 commands:
