@@ -13,27 +13,33 @@ sourceSets {
         java.srcDir("../common/src/main/java")
         resources.srcDir("../common/src/main/resources")
     }
+    test {
+        java.srcDir("../common/src/test/java")
+    }
 }
 
 dependencies {
-    compileOnly("io.papermc.paper:paper-api:26.2.build.+")
+    compileOnly("io.papermc.paper:paper-api:1.21-R0.1-SNAPSHOT")
+    testImplementation("io.papermc.paper:paper-api:1.21-R0.1-SNAPSHOT")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.11.4")
+    testImplementation("org.mockito:mockito-core:5.20.0")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
 java {
-    toolchain.languageVersion = JavaLanguageVersion.of(25)
+    toolchain.languageVersion = JavaLanguageVersion.of(21)
 }
 
 tasks {
     runServer {
-        minecraftVersion("26.2")
+        minecraftVersion("1.21")
         jvmArgs("-Xms2G", "-Xmx2G")
     }
-
     processResources {
         val props = mapOf(
             "version" to version,
             "description" to project.description,
-            "apiVersion" to "26.2"
+            "apiVersion" to "1.21"
         )
         filesMatching("plugin.yml") { expand(props) }
     }
@@ -41,6 +47,9 @@ tasks {
 
 tasks.jar {
     archiveBaseName.set("deathBanPlugin")
-    archiveClassifier.set("26.2")
+    archiveClassifier.set("1.21.x")
     archiveVersion.set("")
+}
+tasks.test {
+    useJUnitPlatform()
 }

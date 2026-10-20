@@ -1,2 +1,2 @@
 rootProject.name = "deathBanPlugin"
-include("legacy", "modern", "26_1")
+include("1_21", "26_1", "26_2", "26_3")

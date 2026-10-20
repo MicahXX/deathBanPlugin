@@ -2,3 +2,6 @@
 /.gradle/
 /build/
 /build/classes/java/main/
+# Generated files for each version module
+/*/build/
+/*/run/

@@ -13,10 +13,17 @@ sourceSets {
         java.srcDir("../common/src/main/java")
         resources.srcDir("../common/src/main/resources")
     }
+    test {
+        java.srcDir("../common/src/test/java")
+    }
 }
 
 dependencies {
     compileOnly("io.papermc.paper:paper-api:26.1.2.build.+")
+    testImplementation("io.papermc.paper:paper-api:26.1.2.build.+")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.11.4")
+    testImplementation("org.mockito:mockito-core:5.20.0")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
 java {
@@ -42,4 +49,7 @@ tasks.jar {
     archiveBaseName.set("deathBanPlugin")
     archiveClassifier.set("26.1")
     archiveVersion.set("")
+}
+tasks.test {
+    useJUnitPlatform()
 }

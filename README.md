@@ -1,22 +1,22 @@
 A Paper plugin that automatically bans players when they die, with configurable duration, messages, and player-specific rules.
 
-## Compatibility
-
-This project is split into separate builds targeting different Minecraft/Java versions, all sharing the same source code:
-
-| Module   | Minecraft Version | Server Software | Java | Status |
-|----------|--------------------|------------------|------|--------|
-| legacy   | 1.21.x             | Paper            | 21   | Works  |
-| 26_1     | 26.1.x             | Paper            | 25   | Works  |
-| modern   | 26.2+              | Paper            | 25   | Works  |
-
 ## Building
 
+Install JDK 21 and JDK 25 so Gradle can select the matching Java toolchain.
+
 ```bash
-./gradlew :legacy:build   # outputs build/libs/deathBanPlugin-1.21.x.jar
-./gradlew :26_1:build     # outputs build/libs/deathBanPlugin-26.1.jar
-./gradlew :modern:build   # outputs build/libs/deathBanPlugin-26.x.jar
+./gradlew build            # builds every version
+./gradlew :1_21:build      # outputs 1_21/build/libs/deathBanPlugin-1.21.x.jar
+./gradlew :26_1:build      # outputs 26_1/build/libs/deathBanPlugin-26.1.jar
+./gradlew :26_2:build      # outputs 26_2/build/libs/deathBanPlugin-26.2.jar
+./gradlew :26_3:build      # outputs 26_3/build/libs/deathBanPlugin-26.3.jar
 ```
+
+On Windows, use `gradlew.bat` in place of `./gradlew`.
+
+The build runs the shared death-ban tests against each module's Paper API. Run `./gradlew test` to run just the tests.
+
+For a local development server, use the matching module's `runServer` task, for example `./gradlew :26_3:runServer`.
 
 ## Commands
 
